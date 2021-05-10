@@ -34,7 +34,7 @@ public class ObjectiveCompleteLaps : Objective
         Register();
     }
 
-    protected override void ReachCheckpoint(int remaining)
+    protected override void ReachCheckpoint(int remaining, bool isTimed, float timeGained)
     {
 
         if (isCompleted)
@@ -48,22 +48,23 @@ public class ObjectiveCompleteLaps : Objective
         if (targetRemaining == 0)
         {
             CompleteObjective(string.Empty, GetUpdatedCounterAmount(),
-                "Objective complete: " + title);
+                "Objetivo cumplido: " + title);
         }
         else if (targetRemaining == 1)
         {
             string notificationText = notificationLapsRemainingThreshold >= targetRemaining
-                ? "One " + targetName + " left"
+                ? "Una " + targetName + " restante"
                 : string.Empty;
+            notificationText = isTimed ? notificationText + " ( " + timeGained.ToString() + " segundos extras)" : notificationText;
             UpdateObjective(string.Empty, GetUpdatedCounterAmount(), notificationText);
         }
         else if (targetRemaining > 1)
         {
             // create a notification text if needed, if it stays empty, the notification will not be created
-            string notificationText = notificationLapsRemainingThreshold >= targetRemaining
-                ? targetRemaining + " " + targetName + "s to collect left"
+            string notificationText = notificationLapsRemainingThreshold < targetRemaining
+                ? targetRemaining + " " + targetName + "s restantes"
                 : string.Empty;
-
+            notificationText = isTimed ? notificationText + " ( " + timeGained.ToString() + " segundos extras)" : notificationText;
             UpdateObjective(string.Empty, GetUpdatedCounterAmount(), notificationText);
         }
 

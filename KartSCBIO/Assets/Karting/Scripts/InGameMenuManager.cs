@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class InGameMenuManager : MonoBehaviour
 {
@@ -39,7 +40,7 @@ public class InGameMenuManager : MonoBehaviour
     private void Update()
     {
         
-        if (Input.GetButtonDown(GameConstants.k_ButtonNamePauseMenu)
+        if (Input.GetButtonDown(GameConstants.k_ButtonNameCancel)
             || (menuRoot.activeSelf && Input.GetButtonDown(GameConstants.k_ButtonNameCancel)))
         {
             if (controlImage.activeSelf)
@@ -108,5 +109,11 @@ public class InGameMenuManager : MonoBehaviour
     public void OnShowControlButtonClicked(bool show)
     {
         controlImage.SetActive(show);
+    }
+    public void OnVolumeChanged(Slider slide) {
+        AudioListener.volume = slide.value;
+    }
+    public void SetIntroMenu() {
+        SceneManager.LoadScene("IntroMenu");
     }
 }

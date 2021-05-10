@@ -33,7 +33,7 @@ public class ObjectiveReachTargets : Objective
         Register();
     }
 
-    protected override void ReachCheckpoint(int remaining)
+    protected override void ReachCheckpoint(int remaining, bool isTimed, float timeGained)
     {
 
         if (isCompleted)

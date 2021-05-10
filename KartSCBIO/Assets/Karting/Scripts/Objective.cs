@@ -66,7 +66,7 @@ public abstract class Objective : MonoBehaviour
         return total;
     }
 
-    protected abstract void ReachCheckpoint(int remaining);
+    protected abstract void ReachCheckpoint(int remaining, bool isTimed, float timeGained);
     
     void OnEnable()
     {
@@ -131,9 +131,9 @@ public abstract class Objective : MonoBehaviour
 
             LapObject lapObject = (LapObject) pickupCollected;
 
-            if (!lapObject.finishLap) return;
+            if (!lapObject.finishLap) return; //Si el objeto no es la linea de meta no ejecuta las siguientes lineas
 
-            if (!lapObject.lapOverNextPass)
+            if (!lapObject.lapOverNextPass) //La primera vez que pasa por linea de meta, actualiza las vueltas e incia el tiempo
             {
                 TimeDisplay.OnUpdateLap();
                 lapObject.lapOverNextPass = true;
@@ -141,18 +141,18 @@ public abstract class Objective : MonoBehaviour
             }
 
             if (NumberOfActivePickupsRemaining() != 0) return;
-
-            ReachCheckpoint(0);
+            ReachCheckpoint(0,isTimed,lapObject.TimeGained);
             ResetPickups();
             TimeDisplay.OnUpdateLap();
-
+            if(isTimed)
+                TimeManager.OnAdjustTime(lapObject.TimeGained);
         }
         else
         {
-            ReachCheckpoint(NumberOfPickupsRemaining - 1);
+            ReachCheckpoint(NumberOfPickupsRemaining - 1,isTimed,0);
             Pickups.Remove(pickupCollected);
             if (gameMode == GameMode.Laps)
-                KartGame.Track.TimeDisplay.OnUpdateLap();
+                KartGame.Track.TimeDisplay.OnUpdateLap(); 
         }
     }
 

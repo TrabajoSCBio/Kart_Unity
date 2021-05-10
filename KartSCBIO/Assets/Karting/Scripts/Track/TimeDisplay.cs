@@ -35,8 +35,8 @@ namespace KartGame.Track
         {
             currentLapText.SetText("");
             bestLapText.SetText("");
-            currentLapText.SetTitle("Current:");
-            bestLapText.SetTitle("Best Lap:");
+            currentLapText.SetTitle("Vuelta actual:");
+            bestLapText.SetTitle("Mejor vuelta:");
             currentLapStartTime = 0;
             lapsOver = false;
         }

@@ -7,6 +7,8 @@ namespace KartGame.KartSystems
 {
     public class ArcadeKart : MonoBehaviour
     {
+        [Header("ScriptableObjects")]
+        public ConfigurationRace configuration;
         [System.Serializable]
         public class StatPowerup
         {
@@ -233,6 +235,7 @@ namespace KartGame.KartSystems
 
         void Awake()
         {
+            baseStats.TopSpeed = configuration.maxSpeed;
             Rigidbody = GetComponent<Rigidbody>();
             m_Inputs = GetComponents<IInput>();
 
@@ -357,7 +360,6 @@ namespace KartGame.KartSystems
 
             // add powerups to our final stats
             m_FinalStats = baseStats + powerups;
-
             // clamp values in finalstats
             m_FinalStats.Grip = Mathf.Clamp(m_FinalStats.Grip, 0, 1);
         }

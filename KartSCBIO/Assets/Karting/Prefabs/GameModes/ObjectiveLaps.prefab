@@ -44,16 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee5fe0e5a8b366e468255c72bbd5ec0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  configuration: {fileID: 11400000, guid: 8c58f92a55624de40ab388bb80dda94b, type: 2}
   gameMode: 2
-  targetName: Lap
-  title: Complete all the laps
-  description: Laps
+  targetName: Vuelta
+  title: Completa todas las vueltas
+  description: Vueltas
   isOptional: 0
   delayVisible: 5
-  isTimed: 0
-  totalTimeInSecs: 100
+  isTimed: 1
+  totalTimeInSecs: 15
   displayMessage: {fileID: 1902712905063461278}
-  lapsToComplete: 1
+  lapsToComplete: 5
   notificationLapsRemainingThreshold: 1
 --- !u!114 &1902712905063461278
 MonoBehaviour:
@@ -67,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4170175d245c6409bb0cb4cc7b2c5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  message: Complete all the laps
+  message: Completa todas las vueltas
   messagePrefab: {fileID: 11400000, guid: 4f09a4fe2b79f494cb4b65e27102ddd2, type: 2}
   delayBeforeShowing: 3
   autoDisplayOnAwake: 0

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c413512627a4eba46bdb2a19faa9eff3, type: 3}
+  m_Name: "Configuraci\xF3n"
+  m_EditorClassIdentifier: 
+  laps: 3
+  bots: 3
+  timeLap: 50
+  extraTime: 30
+  maxSpeed: 20
+  activeObjects: 0
+  isTimed: 1
+  SceneRacing: CircuitoA

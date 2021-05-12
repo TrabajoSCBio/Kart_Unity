@@ -2,6 +2,8 @@
 
 public abstract class TargetObject : MonoBehaviour
 {
+    [Header("ScriptableObjects")]
+    public ConfigurationRace configuration;
     [Header("Gameplay")]
     [Tooltip("Which game mode are you playing?")]
     public GameMode gameMode;
@@ -25,6 +27,7 @@ public abstract class TargetObject : MonoBehaviour
 
     void OnEnable()
     {
+        TimeGained = configuration.extraTime;
         active = true;
     }
     

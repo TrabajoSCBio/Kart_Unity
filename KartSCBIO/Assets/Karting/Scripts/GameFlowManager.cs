@@ -3,17 +3,21 @@ using UnityEngine;
 using UnityEngine.Playables;
 using KartGame.KartSystems;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public enum GameState{Play, Won, Lost}
 
 public class GameFlowManager : MonoBehaviour
 {
+    [Header("ScriptableObjects")]
+    public ConfigurationRace Configuration;
+    [Header("Bots Prefabs")]
+    public List<GameObject> Bots = new List<GameObject>();
     [Header("Parameters")]
     [Tooltip("Duration of the fade-to-black at the end of the game")]
     public float endSceneLoadDelay = 3f;
     [Tooltip("The canvas group of the fade-to-black screen")]
     public CanvasGroup endGameFadeCanvasGroup;
-
     [Header("Win")]
     [Tooltip("This string has to be the name of the scene you want to load when winning")]
     public string winSceneName = "WinScene";
@@ -47,7 +51,13 @@ public class GameFlowManager : MonoBehaviour
     float m_TimeLoadEndGameScene;
     string m_SceneToLoad;
     float elapsedTimeBeforeEndScene = 0;
-
+    private void Awake() 
+    {
+        for (int i = 0; i < Configuration.bots; i++)
+        {
+            Bots[i].SetActive(true);
+        }
+    }
     void Start()
     {
         if (autoFindKarts)
@@ -176,6 +186,7 @@ public class GameFlowManager : MonoBehaviour
         }
         else
         {
+            playerKart.SetCanMove(false);
             m_SceneToLoad = loseSceneName;
             m_TimeLoadEndGameScene = Time.time + endSceneLoadDelay + delayBeforeFadeToBlack;
 

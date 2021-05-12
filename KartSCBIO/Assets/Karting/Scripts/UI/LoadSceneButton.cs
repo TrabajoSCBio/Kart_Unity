@@ -5,12 +5,19 @@ namespace KartGame.UI
 {
     public class LoadSceneButton : MonoBehaviour
     {
-        [Tooltip("What is the name of the scene we want to load when clicking the button?")]
-        public string SceneName;
+        [Header("ScriptableObjects")]
+        public ConfigurationRace Configuration; 
+        [Tooltip("You want to return menu or return map")]
+        public bool returnMenu;
 
         public void LoadTargetScene() 
         {
-            SceneManager.LoadSceneAsync(SceneName);
+            if(returnMenu) 
+            {
+                SceneManager.LoadSceneAsync("IntroMenu");
+            } else {
+                SceneManager.LoadSceneAsync(Configuration.SceneRacing);
+            }
         }
     }
 }

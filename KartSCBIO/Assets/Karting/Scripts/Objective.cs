@@ -11,6 +11,8 @@ public enum GameMode
 
 public abstract class Objective : MonoBehaviour
 {
+    [Header("ScriptableObjects")]
+    public ConfigurationRace configuration;
     [Tooltip("Which game mode are you playing?")]
     public GameMode gameMode;
 

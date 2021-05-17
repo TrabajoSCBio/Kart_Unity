@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine.VFX;
 
 namespace KartGame.KartSystems
@@ -182,7 +183,11 @@ namespace KartGame.KartSystems
         Vector3 m_LastCollisionNormal;
         bool m_HasCollision;
         bool m_InAir = false;
-
+        [HideInInspector] public int m_checkpointsReach = 0;
+        [HideInInspector] public bool m_startCounting = false;
+        [HideInInspector] public int m_currentCheckpoint = 0;
+        public int m_rank = 0;
+        public List<LapObject> CheckpointsRanks = new List<LapObject>();
         public void AddPowerup(StatPowerup statPowerup) => m_ActivePowerupList.Add(statPowerup);
         public void SetCanMove(bool move) => m_CanMove = move;
         public float GetMaxSpeed() => Mathf.Max(m_FinalStats.TopSpeed, m_FinalStats.ReverseSpeed);
@@ -398,7 +403,6 @@ namespace KartGame.KartSystems
                 return Input.Accelerate ? 1.0f : 0.0f;
             }
         }
-
         void OnCollisionEnter(Collision collision) => m_HasCollision = true;
         void OnCollisionExit(Collision collision) => m_HasCollision = false;
 

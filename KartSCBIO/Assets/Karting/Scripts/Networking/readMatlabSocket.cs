@@ -11,6 +11,10 @@ public class readMatlabSocket : MonoBehaviour
     // Use this for initialization
     TcpListener listener;
     String msg;
+    public bool acelerar = false;
+    public bool frenar = false;
+    public bool objeto = false;
+    public float girar;
     void Start()
     {
         listener = new TcpListener(55001);
@@ -30,6 +34,22 @@ public class readMatlabSocket : MonoBehaviour
             NetworkStream ns = client.GetStream();
             StreamReader reader = new StreamReader(ns);
             msg = reader.ReadToEnd();
+            switch (msg)
+            {
+                case "acelerar":
+                frenar = false;
+                acelerar = true;
+                break;
+                case "frenar":
+                acelerar = false;
+                frenar = true;
+                break;
+                case "objeto":
+                objeto = true;
+                break;
+                default:
+                break;
+            }
             print(msg);
         }
     }

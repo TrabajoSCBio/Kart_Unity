@@ -77,9 +77,4 @@ public class ObjectiveCompleteLaps : Objective
     {
         return currentLap + " / " + lapsToComplete;
     }
-  
-   
-  
-  
-
 }

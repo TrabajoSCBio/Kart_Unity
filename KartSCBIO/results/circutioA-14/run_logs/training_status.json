@@ -1,0 +1,29 @@
+{
+    "ArcadeDriver": {
+        "checkpoints": [
+            {
+                "steps": 240533,
+                "file_path": "results\\circutioA-14\\ArcadeDriver\\ArcadeDriver-240533.onnx",
+                "reward": 277.6630297807547,
+                "creation_time": 1621009240.6243606,
+                "auxillary_file_paths": [
+                    "results\\circutioA-14\\ArcadeDriver\\ArcadeDriver-240533.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 240533,
+            "file_path": "results\\circutioA-14\\ArcadeDriver.onnx",
+            "reward": 277.6630297807547,
+            "creation_time": 1621009240.6243606,
+            "auxillary_file_paths": [
+                "results\\circutioA-14\\ArcadeDriver\\ArcadeDriver-240533.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.26.0",
+        "torch_version": "1.8.1+cpu"
+    }
+}

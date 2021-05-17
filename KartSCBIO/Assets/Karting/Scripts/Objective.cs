@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using KartGame.Track;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public enum GameMode
 {
@@ -15,7 +17,6 @@ public abstract class Objective : MonoBehaviour
     public ConfigurationRace configuration;
     [Tooltip("Which game mode are you playing?")]
     public GameMode gameMode;
-
     protected int m_PickupTotal;
 
     [Tooltip("Name of the target object the player will collect/crash/complete for this objective")]
@@ -39,6 +40,7 @@ public abstract class Objective : MonoBehaviour
     [Tooltip("If there is a time limit, how long in secs?")]
     public int totalTimeInSecs;
     public bool isCompleted { get; protected set; }
+    public Text textRank;
     public bool isBlocking() => !(isOptional || isCompleted);
 
     public UnityAction<UnityActionUpdateObjective> onUpdateObjective;
@@ -48,7 +50,7 @@ public abstract class Objective : MonoBehaviour
     
     public static Action<TargetObject> OnRegisterPickup;
     public static Action<TargetObject> OnUnregisterPickup;
-    
+    public static Action<TargetObject> OnUpdateRanks;
     public DisplayMessage displayMessage;
 
     private List<TargetObject> pickups = new List<TargetObject>();
@@ -74,6 +76,7 @@ public abstract class Objective : MonoBehaviour
     {
         OnRegisterPickup += RegisterPickup;
         OnUnregisterPickup += UnregisterPickup;
+        OnUpdateRanks += UpdateRanks;
     }
 
     protected void Register()
@@ -130,7 +133,6 @@ public abstract class Objective : MonoBehaviour
         if (pickupCollected.gameMode == GameMode.Laps)
         {
             pickupCollected.active = false;
-
             LapObject lapObject = (LapObject) pickupCollected;
 
             if (!lapObject.finishLap) return; //Si el objeto no es la linea de meta no ejecuta las siguientes lineas
@@ -138,6 +140,7 @@ public abstract class Objective : MonoBehaviour
             if (!lapObject.lapOverNextPass) //La primera vez que pasa por linea de meta, actualiza las vueltas e incia el tiempo
             {
                 TimeDisplay.OnUpdateLap();
+                textRank.gameObject.SetActive(true);
                 lapObject.lapOverNextPass = true;
                 return;
             }
@@ -157,6 +160,13 @@ public abstract class Objective : MonoBehaviour
                 KartGame.Track.TimeDisplay.OnUpdateLap(); 
         }
     }
+    public void UpdateRanks (TargetObject pickupCollected)
+    {
+        List<KartGame.KartSystems.ArcadeKart> Karts = FindObjectsOfType<KartGame.KartSystems.ArcadeKart>().ToList<KartGame.KartSystems.ArcadeKart>();
+        var KartsRank = from m_kart in Karts orderby m_kart.m_checkpointsReach select m_kart;
+        var KartsRankList = Enumerable.Reverse(KartsRank).ToList();
+        KartsRankList.ForEach(o => {o.m_rank = KartsRankList.IndexOf(o) + 1;});
+    }
 
     public void ResetPickups()
     {
@@ -170,6 +180,7 @@ public abstract class Objective : MonoBehaviour
     {
         OnRegisterPickup -= RegisterPickup;
         OnUnregisterPickup -= UnregisterPickup;
+        OnUpdateRanks -= UpdateRanks;
     }
 
 }

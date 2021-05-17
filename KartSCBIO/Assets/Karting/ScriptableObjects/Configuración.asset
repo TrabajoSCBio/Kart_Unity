@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c413512627a4eba46bdb2a19faa9eff3, type: 3}
   m_Name: "Configuraci\xF3n"
   m_EditorClassIdentifier: 
-  laps: 3
+  laps: 4
   bots: 3
-  timeLap: 50
+  timeLap: 30
   extraTime: 30
-  maxSpeed: 20
+  maxSpeed: 25
   activeObjects: 0
-  isTimed: 1
+  isTimed: 0
   SceneRacing: CircuitoA

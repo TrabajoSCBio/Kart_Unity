@@ -20,12 +20,24 @@ public class LapObject : TargetObject
     {
         lapOverNextPass = false;
     }
-
     private void OnTriggerEnter(Collider other)
     {
-        if (!((layerMask.value & 1 << other.gameObject.layer) > 0 && other.CompareTag("Player")))
+        if (!((layerMask.value & 1 << other.gameObject.layer) > 0))
             return;
-       
+
+        KartGame.KartSystems.ArcadeKart m_kart = other.GetComponentInParent<KartGame.KartSystems.ArcadeKart>();
+        if(finishLap) 
+        {
+            m_kart.m_currentCheckpoint = 0;
+            m_kart.m_startCounting = true;
+        }
+        bool flag = this.gameObject == m_kart.CheckpointsRanks[m_kart.m_currentCheckpoint].gameObject;
+        if(flag && m_kart.m_startCounting)
+        {
+            m_kart.m_currentCheckpoint += 1;
+            m_kart.m_checkpointsReach += 1;
+            Objective.OnUpdateRanks?.Invoke(this);
+        }
         Objective.OnUnregisterPickup?.Invoke(this);
     }
 }

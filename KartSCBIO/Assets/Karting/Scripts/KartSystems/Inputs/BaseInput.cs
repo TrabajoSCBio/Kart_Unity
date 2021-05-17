@@ -11,7 +11,7 @@ namespace KartGame.KartSystems
 
     public interface IInput
     {
-        InputData GenerateInput();
+        InputData GenerateInput(); 
     }
 
     public abstract class BaseInput : MonoBehaviour, IInput

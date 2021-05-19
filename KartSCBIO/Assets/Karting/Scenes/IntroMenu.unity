@@ -5102,12 +5102,12 @@ MonoBehaviour:
   maxLaps: 6
   minBots: 3
   maxBots: 8
-  minTime: 30
+  minTime: 60
   maxTime: 120
-  minExtraTime: 30
-  maxExtraTime: 60
+  minExtraTime: 50
+  maxExtraTime: 120
   minSpeed: 15
-  maxSpeed: 25
+  maxSpeed: 20
   SceneRacing: 
 --- !u!4 &566135875
 Transform:

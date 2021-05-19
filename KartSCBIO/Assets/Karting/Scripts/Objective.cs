@@ -41,6 +41,7 @@ public abstract class Objective : MonoBehaviour
     public int totalTimeInSecs;
     public bool isCompleted { get; protected set; }
     public Text textRank;
+    public GameObject Item;
     public bool isBlocking() => !(isOptional || isCompleted);
 
     public UnityAction<UnityActionUpdateObjective> onUpdateObjective;
@@ -50,9 +51,7 @@ public abstract class Objective : MonoBehaviour
     
     public static Action<TargetObject> OnRegisterPickup;
     public static Action<TargetObject> OnUnregisterPickup;
-    public static Action<TargetObject> OnUpdateRanks;
     public DisplayMessage displayMessage;
-
     private List<TargetObject> pickups = new List<TargetObject>();
 
     public List<TargetObject> Pickups => pickups;
@@ -76,7 +75,6 @@ public abstract class Objective : MonoBehaviour
     {
         OnRegisterPickup += RegisterPickup;
         OnUnregisterPickup += UnregisterPickup;
-        OnUpdateRanks += UpdateRanks;
     }
 
     protected void Register()
@@ -141,6 +139,7 @@ public abstract class Objective : MonoBehaviour
             {
                 TimeDisplay.OnUpdateLap();
                 textRank.gameObject.SetActive(true);
+                Item.SetActive(true); 
                 lapObject.lapOverNextPass = true;
                 return;
             }
@@ -160,14 +159,6 @@ public abstract class Objective : MonoBehaviour
                 KartGame.Track.TimeDisplay.OnUpdateLap(); 
         }
     }
-    public void UpdateRanks (TargetObject pickupCollected)
-    {
-        List<KartGame.KartSystems.ArcadeKart> Karts = FindObjectsOfType<KartGame.KartSystems.ArcadeKart>().ToList<KartGame.KartSystems.ArcadeKart>();
-        var KartsRank = from m_kart in Karts orderby m_kart.m_checkpointsReach select m_kart;
-        var KartsRankList = Enumerable.Reverse(KartsRank).ToList();
-        KartsRankList.ForEach(o => {o.m_rank = KartsRankList.IndexOf(o) + 1;});
-    }
-
     public void ResetPickups()
     {
         for (int i = 0; i < Pickups.Count; i++)
@@ -180,7 +171,6 @@ public abstract class Objective : MonoBehaviour
     {
         OnRegisterPickup -= RegisterPickup;
         OnUnregisterPickup -= UnregisterPickup;
-        OnUpdateRanks -= UpdateRanks;
     }
 
 }

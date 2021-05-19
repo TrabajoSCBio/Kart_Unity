@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Playables;
 using KartGame.KartSystems;
@@ -10,10 +11,6 @@ public enum GameState{Play, Won, Lost}
 
 public class GameFlowManager : MonoBehaviour
 {
-    [Header("ScriptableObjects")]
-    public ConfigurationRace Configuration;
-    [Header("Bots Prefabs")]
-    public List<GameObject> Bots = new List<GameObject>();
     [Header("Parameters")]
     [Tooltip("Duration of the fade-to-black at the end of the game")]
     public float endSceneLoadDelay = 3f;
@@ -46,7 +43,10 @@ public class GameFlowManager : MonoBehaviour
     public bool autoFindKarts = true;
     public ArcadeKart playerKart;
     public Text textRank;
-
+    public Image ImageItem;
+    public List<Collider> CheckpointsRanks = new List<Collider>();
+    public List<Sprite> IconSprites = new List<Sprite>();
+    public List<GameObject> ItemsPrefabs = new List<GameObject>(4);
     ArcadeKart[] karts;
     ObjectiveManager m_ObjectiveManager;
     TimeManager m_TimeManager;
@@ -57,10 +57,6 @@ public class GameFlowManager : MonoBehaviour
     {
         if (autoFindKarts)
         {
-            for (int i = 0; i < Configuration.bots; i++)
-            {
-                Bots[i].SetActive(true);
-            }
             karts = FindObjectsOfType<ArcadeKart>();
             if (karts.Length > 0)
             {
@@ -124,7 +120,6 @@ public class GameFlowManager : MonoBehaviour
 
     void Update()
     {
-        textRank.text = playerKart.m_rank.ToString() + "º";
         if (gameState != GameState.Play)
         {
             elapsedTimeBeforeEndScene += Time.deltaTime;
@@ -155,7 +150,53 @@ public class GameFlowManager : MonoBehaviour
                 EndGame(false);
         }
     }
-
+    public void RankRacers() 
+    {
+        bool swap = true;
+        while(swap == true)
+        {
+            swap = false;
+            for (int i = karts.Length - 1; i > 0; i--)
+            {
+                if(karts[i].GetComponent<CheckPointTracker>().checkpointsPassed > karts[i-1].GetComponent<CheckPointTracker>().checkpointsPassed) 
+                {
+                    swap = true;
+                    ArcadeKart tempKart = karts[i-1];
+                    karts[i-1] = karts[i];
+                    karts[i] = tempKart;
+                }
+            }
+        }
+        int index = FindRankIndex(playerKart);
+        textRank.text = (index+1).ToString() + "º";
+    }
+    public int FindRankIndex(ArcadeKart kart) 
+    {
+        for (int i = 0; i < karts.Length; i++)
+        {
+            if(karts[i] == kart)
+            {
+                return i;
+            }
+        }
+        return 0;
+    }
+    public Transform FindNextRank(int index) 
+    {
+        if(index != 0)
+        {
+            return karts[index-1].transform;
+        }
+        return karts[karts.Length-1].transform;
+    }
+    public Transform FindFirstRank(int index)
+    {
+        if(index != 0)
+        {
+            return karts[0].transform;
+        }
+        return karts[karts.Length-1].transform;
+    }
     void EndGame(bool win)
     {
         // unlocks the cursor before leaving the scene, to be able to click buttons

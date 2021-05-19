@@ -140,7 +140,7 @@ public class IntroGameManager : MonoBehaviour
     public void ChangeNumberSpeed(bool RightOrLeft)
     {
         int beforeNumber = speed;
-        speed = AddOrSusNumber(speed, minSpeed, maxSpeed, 5,RightOrLeft);
+        speed = AddOrSusNumber(speed, minSpeed, maxSpeed, 1,RightOrLeft);
         if(beforeNumber != speed)
             NumberSpeed.text = speed.ToString();
     }
@@ -195,20 +195,30 @@ public class IntroGameManager : MonoBehaviour
     }
     private IEnumerator LoadRacing() 
     {
-        AsyncOperation Load = SceneManager.LoadSceneAsync(SceneRacing);
-        Load.allowSceneActivation = false;
-        LaodGamePanel.SetActive(true);
-        OnePlayerPanel.SetActive(false);
-        float progress = 0;
+        yield return null;
 
-        while(progress < 1) 
+        //Begin to load the Scene you specify
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(configuration.SceneRacing);
+        //Don't let the Scene activate until you allow it to
+        asyncOperation.allowSceneActivation = false;
+        LaodGamePanel.SetActive(true);
+        //When the load is still in progress, output the Text and progress bar
+        while (!asyncOperation.isDone)
         {
-            progress = Mathf.Clamp01(Load.progress/0.9f);
+
+            // Check if the load has finished
+            if (asyncOperation.progress >= 0.9f)
+            {
+                TextPressAnyButton.SetActive(true);
+                //Change the Text to show the Scene is ready
+                //Wait to you press the space key to activate the Scene
+                if (Input.anyKeyDown)
+                    //Activate the Scene
+                    asyncOperation.allowSceneActivation = true;
+            }
+
             yield return null;
         }
-        TextPressAnyButton.SetActive(true);
-        yield return new WaitUntil(() => Input.anyKeyDown);
-        Load.allowSceneActivation = true;
     }
     private void SetScreenWindow(int index)
     {

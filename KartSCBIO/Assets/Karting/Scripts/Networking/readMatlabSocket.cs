@@ -17,7 +17,7 @@ public class readMatlabSocket : MonoBehaviour
     public float girar;
     void Start()
     {
-        listener = new TcpListener(55001);
+        listener = new TcpListener(IPAddress.Parse("127.0.0.1"),55001);
         listener.Start();
         print("is listening");
     }

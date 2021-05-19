@@ -6,6 +6,7 @@ namespace KartGame.KartSystems
     {
         public bool Accelerate;
         public bool Brake;
+        public bool Throw;
         public float TurnInput;
     }
 

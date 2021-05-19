@@ -1,7 +1,6 @@
-﻿using System;
+﻿using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.UI;
 using UnityEngine.VFX;
 
 namespace KartGame.KartSystems
@@ -156,6 +155,10 @@ namespace KartGame.KartSystems
 
         [Tooltip("Which layers the wheels will detect.")]
         public LayerMask GroundLayers = Physics.DefaultRaycastLayers;
+        public float timeBoostSpeed;
+        public float distanceItem;
+        public float incrementSpeed;
+        public float speedRotation;
 
         // the input sources that can control the kart
         IInput[] m_Inputs;
@@ -175,6 +178,15 @@ namespace KartGame.KartSystems
 
         // can the kart move?
         bool m_CanMove = true;
+        bool m_hit = false;
+        bool can_BoostSpeed = false;
+        bool can_LowSpeed = false;
+        float timeBoost;
+        float timeRotating;
+        bool throwInput;
+        float timeThrowInput;
+        float maxTime;
+        [HideInInspector] public bool m_canThrow = false;
         List<StatPowerup> m_ActivePowerupList = new List<StatPowerup>();
         ArcadeKart.Stats m_FinalStats;
 
@@ -183,13 +195,12 @@ namespace KartGame.KartSystems
         Vector3 m_LastCollisionNormal;
         bool m_HasCollision;
         bool m_InAir = false;
-        [HideInInspector] public int m_checkpointsReach = 0;
-        [HideInInspector] public bool m_startCounting = false;
-        [HideInInspector] public int m_currentCheckpoint = 0;
-        public int m_rank = 0;
-        public List<LapObject> CheckpointsRanks = new List<LapObject>();
+        [HideInInspector] public enum Items {Banana, RedShell, GreenShell, BoostSpeed, LowSpeed, None}
+        [HideInInspector] public Items item = Items.None;
         public void AddPowerup(StatPowerup statPowerup) => m_ActivePowerupList.Add(statPowerup);
         public void SetCanMove(bool move) => m_CanMove = move;
+        public void SetCanSlowSpeed(bool slowSpeed) => can_LowSpeed = slowSpeed;
+        public void SetIfHit(bool hit) => m_hit = hit;
         public float GetMaxSpeed() => Mathf.Max(m_FinalStats.TopSpeed, m_FinalStats.ReverseSpeed);
 
         private void ActivateDriftVFX(bool active)
@@ -240,6 +251,7 @@ namespace KartGame.KartSystems
 
         void Awake()
         {
+            timeBoost = 0;
             baseStats.TopSpeed = configuration.maxSpeed;
             Rigidbody = GetComponent<Rigidbody>();
             m_Inputs = GetComponents<IInput>();
@@ -270,6 +282,7 @@ namespace KartGame.KartSystems
                     Instantiate(NozzleVFX, nozzle, false);
                 }
             }
+            TickPowerups();
         }
 
         void AddTrailToWheel(WheelCollider wheel)
@@ -290,6 +303,22 @@ namespace KartGame.KartSystems
 
         void FixedUpdate()
         {
+            if(!gameObject.CompareTag("Player")) 
+            {
+                if(m_canThrow)
+                {
+                    if(timeThrowInput == 0)
+                        maxTime = Random.Range(5f,15f);
+                    timeThrowInput += Time.fixedDeltaTime;
+                    if(timeThrowInput > maxTime)
+                    {
+                        throwInput = true;
+                    }
+                }
+            } else 
+            {
+                throwInput = Input.Throw;
+            }
             UpdateSuspensionParams(FrontLeftWheel);
             UpdateSuspensionParams(FrontRightWheel);
             UpdateSuspensionParams(RearLeftWheel);
@@ -298,7 +327,6 @@ namespace KartGame.KartSystems
             GatherInputs();
 
             // apply our powerups to create our finalStats
-            TickPowerups();
 
             // apply our physics properties
             Rigidbody.centerOfMass = transform.InverseTransformPoint(CenterOfMass.position);
@@ -317,18 +345,85 @@ namespace KartGame.KartSystems
             GroundPercent = (float) groundedCount / 4.0f;
             AirPercent = 1 - GroundPercent;
 
-            // apply vehicle physics
+            if(m_hit)
+            {
+                timeRotating += Time.fixedDeltaTime;
+                if(timeRotating <= 1)
+                {
+                    transform.rotation = Quaternion.Slerp(transform.rotation, transform.rotation * new Quaternion(0,1,0,1), Time.fixedDeltaTime * speedRotation);
+                } else {
+                    timeRotating = 0;
+                    m_hit = false;
+                    m_CanMove = true;
+                }
+            }
             if (m_CanMove)
             {
                 MoveVehicle(Input.Accelerate, Input.Brake, Input.TurnInput);
             }
+            if(m_canThrow && throwInput && m_CanMove) 
+            {
+                GameFlowManager GFM = FindObjectOfType<GameFlowManager>();
+                GFM.ImageItem.sprite = GFM.IconSprites[5];
+                switch(item) 
+                {
+                    case Items.Banana:
+                    GameObject Banana = Instantiate(GFM.ItemsPrefabs[0],transform.position - (transform.forward.normalized * distanceItem) + (Vector3.up * 0.25f),GFM.ItemsPrefabs[0].transform.localRotation);
+                    break;
+                    case Items.RedShell:
+                    GameObject RedShell = Instantiate(GFM.ItemsPrefabs[1],transform.position - (transform.forward.normalized * distanceItem),GFM.ItemsPrefabs[1].transform.localRotation);
+                    RedShell.GetComponent<ItemBehaviour>().PlayerObjective = GFM.FindNextRank(GFM.FindRankIndex(this));
+                    break;
+                    case Items.GreenShell:
+                    GameObject GreenShell = Instantiate(GFM.ItemsPrefabs[2],transform.position - (transform.forward.normalized * distanceItem),GFM.ItemsPrefabs[2].transform.localRotation);
+                    GreenShell.GetComponent<ItemBehaviour>().PlayerObjective = GFM.FindFirstRank(GFM.FindRankIndex(this));
+                    break;
+                    case Items.BoostSpeed:
+                    can_BoostSpeed = true;
+                    break;
+                    case Items.LowSpeed:
+                    GameObject Ant = Instantiate(GFM.ItemsPrefabs[3],transform.position - (transform.forward.normalized * distanceItem) + (Vector3.up * 0.1f),GFM.ItemsPrefabs[3].transform.localRotation);
+                    break;
+                    default:
+                    break;
+                }
+                item = Items.None;
+                timeThrowInput = 0;
+                m_canThrow = false;
+                if(!gameObject.CompareTag("Player"))
+                    throwInput = false;
+            }
+            SpeedOrDecreaseBoost();
             GroundAirbourne();
 
             m_PreviousGroundPercent = GroundPercent;
 
             UpdateDriftVFXOrientation();
         }
-
+        void SpeedOrDecreaseBoost() 
+        {
+            if(can_BoostSpeed || can_LowSpeed) 
+            {
+                if(can_BoostSpeed && can_LowSpeed) 
+                {
+                    m_FinalStats.TopSpeed = configuration.maxSpeed;
+                } else if(can_BoostSpeed) 
+                {
+                    m_FinalStats.TopSpeed = configuration.maxSpeed + incrementSpeed;
+                } else if(can_LowSpeed)
+                {
+                    m_FinalStats.TopSpeed = configuration.maxSpeed - incrementSpeed;
+                }
+                timeBoost += Time.fixedDeltaTime;
+                if(timeBoost > timeBoostSpeed) 
+                {
+                    can_BoostSpeed = false;
+                    can_LowSpeed = false;
+                    m_FinalStats.TopSpeed = configuration.maxSpeed;
+                    timeBoost = 0;
+                }
+            }
+        }
         void GatherInputs()
         {
             // reset input
@@ -531,7 +626,6 @@ namespace KartGame.KartSystems
                         ActivateDriftVFX(true);
                     }
                 }
-
                 if (IsDrifting)
                 {
                     float turnInputAbs = Mathf.Abs(turnInput);

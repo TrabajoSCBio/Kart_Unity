@@ -21,16 +21,17 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject ButtonOK;
     [SerializeField]
-    private GameObject PlayerInfo;
+    private GameObject MapA;
     [SerializeField]
-    private GameObject InnerPanelPlayer;
+    private GameObject MapB;
+    [SerializeField]
+    private GameObject StartButton;
     [SerializeField]
     private List<TextMeshProUGUI> PlayerNames = new List<TextMeshProUGUI>();
     #endregion
 
     #region Private Fields
     string gameVersion = "1";
-    Player player;
     #endregion
 
     #region MonoBehaviour CallBacks
@@ -91,6 +92,7 @@ public class Launcher : MonoBehaviourPunCallbacks
             }
         }
     }
+    
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Debug.Log("On JoinRandomFailed()");
@@ -99,6 +101,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     }
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
+        Debug.Log(newPlayer.NickName);
         PlayerNames[PhotonNetwork.PlayerList.Length - 1].text = newPlayer.NickName;
     }
     public override void OnPlayerLeftRoom(Player otherPlayer)
@@ -117,15 +120,31 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         PhotonNetwork.LocalPlayer.NickName = configuration.Nickname;
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+        if (!PhotonNetwork.IsMasterClient)
         {
-            Debug.Log("Creada Room");
-            //PhotonNetwork.LoadLevel("CircuitoA");
+            MapA.SetActive(false);
+            MapB.SetActive(false);
+        } else 
+        {
+            StartCoroutine(CanLoadScene());
         }
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
             PlayerNames[i].text = PhotonNetwork.PlayerList[i].NickName;
         }
+    }
+    private IEnumerator CanLoadScene()
+    {
+        yield return new WaitUntil(() => PhotonNetwork.PlayerList.Length > 2);
+        StartButton.SetActive(true);
+    }
+    public void SelectMap(string nameScene)
+    {
+        configuration.SceneRacing = nameScene;
+    }
+    public void LoadScene()
+    {
+        PhotonNetwork.LoadLevel(configuration.SceneRacing);
     }
     #endregion
 }

@@ -7,6 +7,8 @@ public class MysteryBox : MonoBehaviour
     public float speedRotation;
     public float speedTransition;
     public float offsetY;
+    public GameObject VFX;
+    public AudioClip pickBox;
     float direction;
     Vector3 init;
     private void Start() {
@@ -24,7 +26,6 @@ public class MysteryBox : MonoBehaviour
         {
             direction = 1f;
         }
-        Debug.Log(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, transform.rotation * new Quaternion(0,1,0,1), Time.fixedDeltaTime * speedRotation);
         transform.position = Vector3.Lerp(transform.position, init + (Vector3.up * offsetY * direction), Time.fixedDeltaTime * speedTransition);
     }
@@ -32,6 +33,10 @@ public class MysteryBox : MonoBehaviour
     {
         if(GetComponentInParent<SpawnObjects>()) 
         {
+            GameObject VFX = Instantiate(this.VFX,transform.position,transform.rotation);
+            VFX.GetComponent<ParticleSystem>().Play();
+            AudioUtility.CreateSFX(pickBox, transform.position, AudioUtility.AudioGroups.Pickup, 0f);
+            Destroy(VFX, 2f);
             GetComponentInParent<SpawnObjects>().canInstantiate = true;
         }
     }

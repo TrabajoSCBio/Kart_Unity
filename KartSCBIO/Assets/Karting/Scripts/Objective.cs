@@ -138,7 +138,8 @@ public abstract class Objective : MonoBehaviour
             if (!lapObject.lapOverNextPass) //La primera vez que pasa por linea de meta, actualiza las vueltas e incia el tiempo
             {
                 TimeDisplay.OnUpdateLap();
-                textRank.gameObject.SetActive(true);
+                if(configuration.activeObjects)
+                    textRank.gameObject.SetActive(true);
                 Item.SetActive(true); 
                 lapObject.lapOverNextPass = true;
                 return;

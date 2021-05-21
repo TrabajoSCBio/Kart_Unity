@@ -303,6 +303,7 @@ namespace KartGame.KartSystems
 
         void FixedUpdate()
         {
+            Debug.Log(m_FinalStats.TopSpeed);
             if(!gameObject.CompareTag("Player")) 
             {
                 if(m_canThrow)

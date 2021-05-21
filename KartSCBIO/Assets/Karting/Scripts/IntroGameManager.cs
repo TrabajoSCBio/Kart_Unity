@@ -20,6 +20,7 @@ public class IntroGameManager : MonoBehaviour
     public GameObject KartMenu;
     public GameObject ConfigurationKartPanel;
     [Header("Elementos UI")]
+    public TMP_InputField nicknameInput;
     public Toggle IsTimed;
     public Toggle ActiveObjects;
     public Toggle Body;
@@ -59,6 +60,7 @@ public class IntroGameManager : MonoBehaviour
     private int speed;
     private void Awake() 
     {
+        nicknameInput.text = configuration.Nickname;
         indexListResolution = 1;
         indexListScreen = 1;
         laps = minLaps;
@@ -86,6 +88,10 @@ public class IntroGameManager : MonoBehaviour
         IsTimed.onValueChanged.AddListener(OnIsTimedChanged);
         Body.onValueChanged.AddListener(OnSetBody);
         Kart.onValueChanged.AddListener(OnSetKart);
+    }
+    public void SetNickName(string nick)
+    {
+        configuration.Nickname = nick;
     }
     public void SetSceneRacing(string scene) 
     {
@@ -205,11 +211,10 @@ public class IntroGameManager : MonoBehaviour
         //When the load is still in progress, output the Text and progress bar
         while (!asyncOperation.isDone)
         {
-
             // Check if the load has finished
             if (asyncOperation.progress >= 0.9f)
             {
-                TextPressAnyButton.SetActive(true);
+                TextPressAnyButton.GetComponent<TextMeshProUGUI>().text = "Presiones cualquier tecla...";
                 //Change the Text to show the Scene is ready
                 //Wait to you press the space key to activate the Scene
                 if (Input.anyKeyDown)

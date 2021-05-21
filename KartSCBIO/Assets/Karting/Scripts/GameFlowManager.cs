@@ -47,6 +47,7 @@ public class GameFlowManager : MonoBehaviour
     public List<Collider> CheckpointsRanks = new List<Collider>();
     public List<Sprite> IconSprites = new List<Sprite>();
     public List<GameObject> ItemsPrefabs = new List<GameObject>(4);
+    public Image WheelSteering;
     ArcadeKart[] karts;
     ObjectiveManager m_ObjectiveManager;
     TimeManager m_TimeManager;
@@ -120,6 +121,19 @@ public class GameFlowManager : MonoBehaviour
 
     void Update()
     {
+        if(playerKart) 
+        {
+            if(playerKart.Input.TurnInput > 0.5f) 
+            {
+                WheelSteering.rectTransform.rotation = Quaternion.Slerp(WheelSteering.rectTransform.rotation, new Quaternion(0,0,-1f,1), Time.deltaTime * 1.5f);
+            } else if(playerKart.Input.TurnInput < -0.5f)
+            {
+                WheelSteering.rectTransform.rotation = Quaternion.Slerp(WheelSteering.rectTransform.rotation, new Quaternion(0,0,1f,1), Time.deltaTime * 1.5f);
+            } else 
+            {
+                WheelSteering.rectTransform.rotation = Quaternion.Slerp(WheelSteering.rectTransform.rotation, new Quaternion(0,0,0,1), Time.deltaTime * 5f);
+            }
+        }
         if (gameState != GameState.Play)
         {
             elapsedTimeBeforeEndScene += Time.deltaTime;

@@ -13,4 +13,6 @@ public class ConfigurationRace : ScriptableObject
     public bool activeObjects;
     public bool isTimed;
     public string SceneRacing;
+    public string Nickname;
+    public int rankPlayer;
 }

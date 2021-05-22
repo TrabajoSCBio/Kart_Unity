@@ -583,10 +583,10 @@
       ]
     },
     {
-      "FullName": "System.Void Unity.Jobs.IJobParallelForExtensions/ParallelForJobStruct`1<Unity.Barracuda.BurstCPUOps/AtanhJob>::Execute(T&,System.IntPtr,System.IntPtr,Unity.Jobs.LowLevel.Unsafe.JobRanges&,System.Int32)",
+      "FullName": "System.Void Unity.Jobs.IJobParallelForExtensions/ParallelForJobStruct`1<Unity.Barracuda.BurstCPUOps/CosJob>::Execute(T&,System.IntPtr,System.IntPtr,Unity.Jobs.LowLevel.Unsafe.JobRanges&,System.Int32)",
       "ModuleOptionsHash": 11834165633931345063,
-      "ModuleHash": "2e8ccf487552171468c56eb7d7c6f62c",
-      "LinkName": "9863A03AD1865F2E",
+      "ModuleHash": "2d859e2ee0f7c4e8bcda5c683f80a94d",
+      "LinkName": "EFC62CD830C8A214",
       "AssemblyDependencyIndices": [
         2,
         3,
@@ -596,10 +596,10 @@
       ]
     },
     {
-      "FullName": "System.Void Unity.Jobs.IJobParallelForExtensions/ParallelForJobStruct`1<Unity.Barracuda.BurstCPUOps/CosJob>::Execute(T&,System.IntPtr,System.IntPtr,Unity.Jobs.LowLevel.Unsafe.JobRanges&,System.Int32)",
+      "FullName": "System.Void Unity.Jobs.IJobParallelForExtensions/ParallelForJobStruct`1<Unity.Barracuda.BurstCPUOps/AtanhJob>::Execute(T&,System.IntPtr,System.IntPtr,Unity.Jobs.LowLevel.Unsafe.JobRanges&,System.Int32)",
       "ModuleOptionsHash": 11834165633931345063,
-      "ModuleHash": "2d859e2ee0f7c4e8bcda5c683f80a94d",
-      "LinkName": "EFC62CD830C8A214",
+      "ModuleHash": "2e8ccf487552171468c56eb7d7c6f62c",
+      "LinkName": "9863A03AD1865F2E",
       "AssemblyDependencyIndices": [
         2,
         3,
@@ -784,10 +784,10 @@
       ]
     },
     {
-      "FullName": "System.Void Unity.Jobs.IJobParallelForExtensions/ParallelForJobStruct`1<Unity.Barracuda.BurstCPUOps/ScalarBroadcastAddJob>::Execute(T&,System.IntPtr,System.IntPtr,Unity.Jobs.LowLevel.Unsafe.JobRanges&,System.Int32)",
+      "FullName": "System.Void Unity.Jobs.IJobParallelForExtensions/ParallelForJobStruct`1<Unity.Barracuda.BurstCPUOps/BroadcastAddJob>::Execute(T&,System.IntPtr,System.IntPtr,Unity.Jobs.LowLevel.Unsafe.JobRanges&,System.Int32)",
       "ModuleOptionsHash": 14894265544115024740,
-      "ModuleHash": "734a07e803ddf579ea8b387a03b2750c",
-      "LinkName": "0C2FED748A17D8BA",
+      "ModuleHash": "16fdcb31073f65364046462bda54505a",
+      "LinkName": "4238010726AD9855",
       "AssemblyDependencyIndices": [
         2,
         3,
@@ -796,10 +796,10 @@
       ]
     },
     {
-      "FullName": "System.Void Unity.Jobs.IJobParallelForExtensions/ParallelForJobStruct`1<Unity.Barracuda.BurstCPUOps/BroadcastAddJob>::Execute(T&,System.IntPtr,System.IntPtr,Unity.Jobs.LowLevel.Unsafe.JobRanges&,System.Int32)",
+      "FullName": "System.Void Unity.Jobs.IJobParallelForExtensions/ParallelForJobStruct`1<Unity.Barracuda.BurstCPUOps/ScalarBroadcastAddJob>::Execute(T&,System.IntPtr,System.IntPtr,Unity.Jobs.LowLevel.Unsafe.JobRanges&,System.Int32)",
       "ModuleOptionsHash": 14894265544115024740,
-      "ModuleHash": "16fdcb31073f65364046462bda54505a",
-      "LinkName": "4238010726AD9855",
+      "ModuleHash": "734a07e803ddf579ea8b387a03b2750c",
+      "LinkName": "0C2FED748A17D8BA",
       "AssemblyDependencyIndices": [
         2,
         3,

@@ -27,6 +27,8 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject StartButton;
     [SerializeField]
+    private TextMeshProUGUI TextStartGameInfo;
+    [SerializeField]
     private List<TextMeshProUGUI> PlayerNames = new List<TextMeshProUGUI>();
     #endregion
 
@@ -42,7 +44,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
     #endregion
 
@@ -71,6 +73,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         DisconnectPanel.SetActive(false);
         MultiplayerPanel.SetActive(true);
         PhotonNetwork.JoinRandomRoom();
+        PhotonNetwork.NickName = configuration.Nickname;
         Debug.Log("OnConnectedToMaster()");
     }
     public override void OnDisconnected(DisconnectCause cause)
@@ -101,8 +104,11 @@ public class Launcher : MonoBehaviourPunCallbacks
     }
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        Debug.Log(newPlayer.NickName);
-        PlayerNames[PhotonNetwork.PlayerList.Length - 1].text = newPlayer.NickName;
+        if(!newPlayer.IsMasterClient)
+        {
+            Debug.Log(newPlayer.NickName);
+            PlayerNames[PhotonNetwork.PlayerList.Length - 1].text = newPlayer.NickName;
+        }
     }
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
@@ -124,19 +130,32 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             MapA.SetActive(false);
             MapB.SetActive(false);
+        }
+        if(PhotonNetwork.PlayerList.Length > 0) 
+        {
+            if(!StartButton.activeSelf)
+                StartButton.SetActive(true);
         } else 
         {
-            StartCoroutine(CanLoadScene());
+            if(StartButton.activeSelf)
+                StartButton.SetActive(false);
         }
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
             PlayerNames[i].text = PhotonNetwork.PlayerList[i].NickName;
         }
     }
-    private IEnumerator CanLoadScene()
+    public override void OnLeftRoom()
     {
-        yield return new WaitUntil(() => PhotonNetwork.PlayerList.Length > 2);
-        StartButton.SetActive(true);
+        if(PhotonNetwork.PlayerList.Length > 5) 
+        {
+            if(!StartButton.activeSelf)
+                StartButton.SetActive(true);
+        } else 
+        {
+            if(StartButton.activeSelf)
+                StartButton.SetActive(false);
+        }
     }
     public void SelectMap(string nameScene)
     {
@@ -144,6 +163,20 @@ public class Launcher : MonoBehaviourPunCallbacks
     }
     public void LoadScene()
     {
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        StartCoroutine(WaitLoadLevel());
+    }
+    IEnumerator WaitLoadLevel()
+    {
+        float time;
+        time = 5f;
+        TextStartGameInfo.gameObject.SetActive(true);
+        while(time > 0f)
+        {   
+            time -= Time.deltaTime;
+            TextStartGameInfo.text = "La partida empiza en " + Mathf.Ceil(time).ToString() + "...";
+            yield return null;
+        }
         PhotonNetwork.LoadLevel(configuration.SceneRacing);
     }
     #endregion

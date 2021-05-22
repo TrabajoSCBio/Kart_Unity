@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class BoxCollision : MonoBehaviour
 {
-    public GameFlowManager gameFlowManager;
+    private GameFlowManager gameFlowManager;
     List<Sprite> IconSprites = new List<Sprite>();
     ArcadeKart player;
     private void Start() 
     {
+        gameFlowManager = FindObjectOfType<GameFlowManager>();
         player = GetComponent<ArcadeKart>();
         IconSprites = gameFlowManager.IconSprites;
     }

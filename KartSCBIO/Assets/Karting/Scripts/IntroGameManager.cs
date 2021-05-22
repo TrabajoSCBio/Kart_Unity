@@ -158,31 +158,17 @@ public class IntroGameManager : MonoBehaviour
     public void BackPanel() 
     {
         if(ConfigurationPanel.activeSelf) {
-            ConfigurationKartPanel.SetActive(true);
             ConfigurationPanel.SetActive(false);
-            KartMenu.SetActive(true);
-            textStartButton.text = "Siguiente";
-        } else if(ConfigurationKartPanel.activeSelf){
-            KartMenu.SetActive(false);
-            ConfigurationKartPanel.SetActive(false);
             StartButton.SetActive(false);
             ChooseRacingPanel.SetActive(true);
-        } else {
+        } else if(ChooseRacingPanel.activeSelf){
             OnePlayerPanel.SetActive(false);
         }
     }
-    public void NextOrStartGame() 
+    public void StartGame() 
     {
-        if(ConfigurationPanel.activeSelf) 
-        {
-            SaveConfiguration();
-            StartCoroutine(LoadRacing());
-        } else {
-            ConfigurationPanel.SetActive(true);
-            ConfigurationKartPanel.SetActive(false);
-            KartMenu.SetActive(false);
-            textStartButton.text = "Empezar";
-        }
+        SaveConfiguration();
+        StartCoroutine(LoadRacing());
     }
     public void ExitGame() 
     {

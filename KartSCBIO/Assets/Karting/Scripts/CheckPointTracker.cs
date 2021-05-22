@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CheckPointTracker : MonoBehaviour
 {
-    public GameFlowManager GameFlowManager;
+    private GameFlowManager GameFlowManager;
     [HideInInspector] public int checkpointsPassed;
     [HideInInspector] public bool startCounting;
     [HideInInspector] public int currentCheckpoint;
@@ -12,6 +12,7 @@ public class CheckPointTracker : MonoBehaviour
     Collider nextCheckpoint;
     private void Start() 
     {
+        GameFlowManager = FindObjectOfType<GameFlowManager>();
         checkpointsPassed = 0;
         currentCheckpoint = 0;
         CheckpointsRanks = GameFlowManager.CheckpointsRanks;

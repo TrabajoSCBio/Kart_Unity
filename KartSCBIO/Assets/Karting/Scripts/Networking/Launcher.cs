@@ -6,7 +6,7 @@ using Photon.Realtime;
 using TMPro;
 using UnityEngine.UI;
 
-public class Launcher : MonoBehaviourPunCallbacks
+public class Launcher : MonoBehaviourPunCallbacks, IPunObservable
 {
     #region Private Serializable Fields
     [Tooltip("The maximum number of players per room. When a room is full, it can't be joined by new players, and so new room will be created")]
@@ -34,11 +34,13 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     #region Private Fields
     string gameVersion = "1";
+    bool isGonnaStart;
     #endregion
 
     #region MonoBehaviour CallBacks
     void Awake ()
     {
+        isGonnaStart = false;
         PhotonNetwork.AutomaticallySyncScene = true;
     }
     // Start is called before the first frame update
@@ -73,6 +75,13 @@ public class Launcher : MonoBehaviourPunCallbacks
         DisconnectPanel.SetActive(false);
         MultiplayerPanel.SetActive(true);
         PhotonNetwork.JoinRandomRoom();
+        if(PhotonNetwork.IsMasterClient)
+        {
+            foreach (var item in PlayerNames)
+            {
+                item.text = "Buscando jugadores...";
+            }
+        }
         PhotonNetwork.NickName = configuration.Nickname;
         Debug.Log("OnConnectedToMaster()");
     }
@@ -163,6 +172,9 @@ public class Launcher : MonoBehaviourPunCallbacks
     }
     public void LoadScene()
     {
+        isGonnaStart = true;
+        configuration.activeObjects = true;
+        configuration.isTimed = false;
         PhotonNetwork.CurrentRoom.IsOpen = false;
         StartCoroutine(WaitLoadLevel());
     }
@@ -177,7 +189,23 @@ public class Launcher : MonoBehaviourPunCallbacks
             TextStartGameInfo.text = "La partida empiza en " + Mathf.Ceil(time).ToString() + "...";
             yield return null;
         }
+        MultiplayerPanel.SetActive(false);
         PhotonNetwork.LoadLevel(configuration.SceneRacing);
     }
     #endregion
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if(stream.IsWriting)
+        {
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                stream.SendNext("LE HE DADO AL ESPACIO");
+            }
+            Debug.Log("Escribiendo");
+        } else 
+        {
+            Debug.Log(stream.ReceiveNext());
+            Debug.Log("Leyendo");
+        }
+    }
 }

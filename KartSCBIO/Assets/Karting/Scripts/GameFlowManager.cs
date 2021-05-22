@@ -11,6 +11,8 @@ public enum GameState{Play, Won, Lost}
 
 public class GameFlowManager : MonoBehaviour
 {
+    [Header("Configuration Race")]
+    public ConfigurationRace configuration;
     [Header("Parameters")]
     [Tooltip("Duration of the fade-to-black at the end of the game")]
     public float endSceneLoadDelay = 3f;
@@ -36,19 +38,19 @@ public class GameFlowManager : MonoBehaviour
     public string loseSceneName = "LoseScene";
     [Tooltip("Prefab for the lose game message")]
     public DisplayMessage loseDisplayMessage;
-
-
     public GameState gameState { get; private set; }
-
     public bool autoFindKarts = true;
     public ArcadeKart playerKart;
     public Text textRank;
     public Image ImageItem;
+    public GameObject VictoryPanel;
     public List<Collider> CheckpointsRanks = new List<Collider>();
     public List<Sprite> IconSprites = new List<Sprite>();
     public List<GameObject> ItemsPrefabs = new List<GameObject>(4);
     public Image WheelSteering;
+    public bool isMultiplayer;
     ArcadeKart[] karts;
+    ArcadeKart[] kartsMultiplayer;
     ObjectiveManager m_ObjectiveManager;
     TimeManager m_TimeManager;
     float m_TimeLoadEndGameScene;
@@ -157,14 +159,24 @@ public class GameFlowManager : MonoBehaviour
         }
         else
         {
-            if (m_ObjectiveManager.AreAllObjectivesCompleted())
-                EndGame(true);
+            if(!isMultiplayer)
+            {
+                if (m_ObjectiveManager.AreAllObjectivesCompleted())
+                    EndGame(true);
 
-            if (m_TimeManager.IsFinite && m_TimeManager.IsOver)
-                EndGame(false);
+                if (m_TimeManager.IsFinite && m_TimeManager.IsOver)
+                    EndGame(false);
+            } else 
+            {
+                if(m_ObjectiveManager.AreAllObjectivesCompleted()) 
+                {
+                    Photon.Pun.PhotonNetwork.Disconnect();
+                    SceneManager.LoadScene("Main Menu");
+                }
+            }
         }
     }
-    public void RankRacers() 
+    public void RankRacers(bool multiplayer) 
     {
         bool swap = true;
         while(swap == true)
@@ -181,8 +193,11 @@ public class GameFlowManager : MonoBehaviour
                 }
             }
         }
-        int index = FindRankIndex(playerKart);
-        textRank.text = (index+1).ToString() + "º";
+        if(!multiplayer)
+        {
+            int index = FindRankIndex(playerKart);
+            textRank.text = (index+1).ToString() + "º";
+        }
     }
     public int FindRankIndex(ArcadeKart kart) 
     {
@@ -218,7 +233,7 @@ public class GameFlowManager : MonoBehaviour
         Cursor.visible = true;
 
         m_TimeManager.StopRace();
-
+        configuration.rankPlayer = FindRankIndex(playerKart) + 1;
         // Remember that we need to load the appropriate end scene after a delay
         gameState = win ? GameState.Won : GameState.Lost;
         endGameFadeCanvasGroup.gameObject.SetActive(true);

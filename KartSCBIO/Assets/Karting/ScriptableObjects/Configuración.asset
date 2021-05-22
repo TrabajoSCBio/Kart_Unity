@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laps: 3
   bots: 3
-  timeLap: 30
-  extraTime: 30
+  timeLap: 60
+  extraTime: 50
   maxSpeed: 15
   activeObjects: 1
   isTimed: 0
   SceneRacing: CircuitoA
-  Nickname: Jugador
+  Nickname: Pablito
   rankPlayer: 0

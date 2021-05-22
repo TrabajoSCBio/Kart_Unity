@@ -390,6 +390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Configuration: {fileID: 11400000, guid: 8c58f92a55624de40ab388bb80dda94b, type: 2}
+  text: {fileID: 1898307048}
   returnMenu: 0
 --- !u!1 &134625305
 GameObject:
@@ -876,6 +877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Configuration: {fileID: 11400000, guid: 8c58f92a55624de40ab388bb80dda94b, type: 2}
+  text: {fileID: 1898307048}
   returnMenu: 1
 --- !u!114 &986130591
 MonoBehaviour:

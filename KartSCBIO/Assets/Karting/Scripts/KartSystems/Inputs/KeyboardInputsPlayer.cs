@@ -4,12 +4,17 @@ namespace KartGame.KartSystems
 {
     public class KeyboardInputsPlayer : BaseInput
     {
+        private ReadPythonSocket pythonSocket;
+        private void Awake() {
+            pythonSocket = FindObjectOfType<ReadPythonSocket>();
+        }
         public override InputData GenerateInput() {
             return new InputData
             {
-                Accelerate = Input.GetButtonDown("Accelerate"),
-                Brake = Input.GetButtonDown("Brake"),
-                TurnInput = Input.GetAxis("Horizontal")
+                Accelerate = pythonSocket.acelerar,
+                Brake = pythonSocket.frenar,
+                TurnInput = pythonSocket.giro,
+                Throw = pythonSocket.objeto
             };
         }
     }

@@ -8,8 +8,11 @@ namespace KartGame.UI
         [Header("ScriptableObjects")]
         public ConfigurationRace Configuration; 
         [Tooltip("You want to return menu or return map")]
+        public TMPro.TextMeshProUGUI text;
         public bool returnMenu;
-
+        private void Awake() {
+            text.text = "¡Has quedado " + Configuration.rankPlayer + "º!";
+        }
         public void LoadTargetScene() 
         {
             if(returnMenu) 

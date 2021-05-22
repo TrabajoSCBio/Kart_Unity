@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using KartGame.KartSystems;
 using UnityEngine;
+using Photon.Pun;
 
 public class BoxCollision : MonoBehaviour
 {
+    public bool multiplayer;
     private GameFlowManager gameFlowManager;
     List<Sprite> IconSprites = new List<Sprite>();
     ArcadeKart player;
@@ -41,10 +43,19 @@ public class BoxCollision : MonoBehaviour
                 gameFlowManager.ImageItem.sprite = IconSprites[5];
                 break;
             }
-            if(gameObject.CompareTag("Player"))
-                gameFlowManager.ImageItem.sprite = IconSprites[item];
+            if(gameObject.CompareTag("Player")) 
+            {
+                if(!multiplayer) 
+                {
+                    gameFlowManager.ImageItem.sprite = IconSprites[item];
+                    Destroy(other.gameObject);
+                } else if(multiplayer && this.GetComponent<PhotonView>().IsMine)
+                {   
+                    PhotonView.Destroy(other.gameObject);
+                    gameFlowManager.ImageItem.sprite = IconSprites[item];
+                }
+            }
             player.m_canThrow = true;
-            Destroy(other.gameObject);
         }
     }
 }

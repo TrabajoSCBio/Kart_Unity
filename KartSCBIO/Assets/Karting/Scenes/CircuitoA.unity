@@ -3881,7 +3881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e309c1d34ea538a4b8699a96d54c59be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameFlowManager: {fileID: 695900667}
+  isMultiplayer: 0
   checkpointsPassed: 0
   startCounting: 0
   currentCheckpoint: 0
@@ -3913,7 +3913,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97f7b7fdfd56cb54281178b9760f1a92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameFlowManager: {fileID: 695900667}
+  multiplayer: 0
 --- !u!1001 &353447888
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4848,7 +4848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e309c1d34ea538a4b8699a96d54c59be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameFlowManager: {fileID: 695900667}
+  isMultiplayer: 0
   checkpointsPassed: 0
   startCounting: 0
   currentCheckpoint: 0
@@ -4880,7 +4880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97f7b7fdfd56cb54281178b9760f1a92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameFlowManager: {fileID: 695900667}
+  multiplayer: 0
 --- !u!1001 &423252457
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8238,6 +8238,12 @@ PrefabInstance:
       objectReference: {fileID: 1304724378}
     - target: {fileID: 1315839542190839936, guid: b26c4a65cf4c6475a92bfd03c2c3282b,
         type: 3}
+      propertyPath: configuration
+      value: 
+      objectReference: {fileID: 11400000, guid: 8c58f92a55624de40ab388bb80dda94b,
+        type: 2}
+    - target: {fileID: 1315839542190839936, guid: b26c4a65cf4c6475a92bfd03c2c3282b,
+        type: 3}
       propertyPath: CheckpointsRanks.Array.data[0]
       value: 
       objectReference: {fileID: 8656310738166518048}
@@ -10038,7 +10044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e309c1d34ea538a4b8699a96d54c59be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameFlowManager: {fileID: 695900667}
+  isMultiplayer: 0
   checkpointsPassed: 0
   startCounting: 0
   currentCheckpoint: 0
@@ -10070,7 +10076,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97f7b7fdfd56cb54281178b9760f1a92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameFlowManager: {fileID: 695900667}
+  multiplayer: 0
 --- !u!1001 &862283861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10484,7 +10490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e309c1d34ea538a4b8699a96d54c59be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameFlowManager: {fileID: 695900667}
+  isMultiplayer: 0
   checkpointsPassed: 0
   startCounting: 0
   currentCheckpoint: 0
@@ -10516,7 +10522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97f7b7fdfd56cb54281178b9760f1a92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameFlowManager: {fileID: 695900667}
+  multiplayer: 0
 --- !u!4 &889413271 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4345878849055200, guid: fa6105287f77b1240a0017f7d23434c2,
@@ -15065,7 +15071,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4810912518991602695, guid: 19954de30401f73428254541a9ad156e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 19954de30401f73428254541a9ad156e, type: 3}
 --- !u!4 &1304724376 stripped
 Transform:
@@ -15109,7 +15116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e309c1d34ea538a4b8699a96d54c59be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameFlowManager: {fileID: 695900667}
+  isMultiplayer: 0
   checkpointsPassed: 0
   startCounting: 0
   currentCheckpoint: 0
@@ -15125,7 +15132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97f7b7fdfd56cb54281178b9760f1a92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameFlowManager: {fileID: 695900667}
+  multiplayer: 0
 --- !u!208 &1304724382
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -15142,6 +15149,18 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 0
   m_Center: {x: 0, y: 0.75, z: -0.15}
   m_TimeToStationary: 0.5
+--- !u!114 &1304724383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304724379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 941d46dd965f6e045a197fd4f8589682, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1309604986
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18702,7 +18721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e309c1d34ea538a4b8699a96d54c59be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameFlowManager: {fileID: 695900667}
+  isMultiplayer: 0
   checkpointsPassed: 0
   startCounting: 0
   currentCheckpoint: 0
@@ -18734,7 +18753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97f7b7fdfd56cb54281178b9760f1a92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameFlowManager: {fileID: 695900667}
+  multiplayer: 0
 --- !u!1001 &1659837062
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18952,7 +18971,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -9116393239106031902, guid: fcc71635aab95ff4fbdf1880bf2afa2f,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 1939f7149c0fae14a891ac314cb2e8f3, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 7cbd44697f9c72d498f2aff51857c5de, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.4
   m_Pitch: 1
@@ -19070,7 +19089,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e309c1d34ea538a4b8699a96d54c59be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameFlowManager: {fileID: 695900667}
+  isMultiplayer: 0
   checkpointsPassed: 0
   startCounting: 0
   currentCheckpoint: 0
@@ -19102,7 +19121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97f7b7fdfd56cb54281178b9760f1a92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameFlowManager: {fileID: 695900667}
+  multiplayer: 0
 --- !u!1001 &1714476471
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19955,7 +19974,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e309c1d34ea538a4b8699a96d54c59be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameFlowManager: {fileID: 695900667}
+  isMultiplayer: 0
   checkpointsPassed: 0
   startCounting: 0
   currentCheckpoint: 0
@@ -19987,7 +20006,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97f7b7fdfd56cb54281178b9760f1a92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameFlowManager: {fileID: 695900667}
+  multiplayer: 0
 --- !u!1 &1844352187
 GameObject:
   m_ObjectHideFlags: 0
@@ -42954,75 +42973,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
   m_IsActive: 1
---- !u!1001 &6910374918441802472
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6910374918505706454, guid: e91aa544d6b560e44bb6ab69de38c9f6,
-        type: 3}
-      propertyPath: m_Name
-      value: PythonManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 6910374918505706455, guid: e91aa544d6b560e44bb6ab69de38c9f6,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 6910374918505706455, guid: e91aa544d6b560e44bb6ab69de38c9f6,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6910374918505706455, guid: e91aa544d6b560e44bb6ab69de38c9f6,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6910374918505706455, guid: e91aa544d6b560e44bb6ab69de38c9f6,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6910374918505706455, guid: e91aa544d6b560e44bb6ab69de38c9f6,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6910374918505706455, guid: e91aa544d6b560e44bb6ab69de38c9f6,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6910374918505706455, guid: e91aa544d6b560e44bb6ab69de38c9f6,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6910374918505706455, guid: e91aa544d6b560e44bb6ab69de38c9f6,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6910374918505706455, guid: e91aa544d6b560e44bb6ab69de38c9f6,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6910374918505706455, guid: e91aa544d6b560e44bb6ab69de38c9f6,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6910374918505706455, guid: e91aa544d6b560e44bb6ab69de38c9f6,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e91aa544d6b560e44bb6ab69de38c9f6, type: 3}
 --- !u!64 &7588562149757144617
 MeshCollider:
   m_ObjectHideFlags: 0

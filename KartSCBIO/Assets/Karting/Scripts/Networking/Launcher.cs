@@ -6,7 +6,7 @@ using Photon.Realtime;
 using TMPro;
 using UnityEngine.UI;
 
-public class Launcher : MonoBehaviourPunCallbacks, IPunObservable
+public class Launcher : MonoBehaviourPunCallbacks
 {
     #region Private Serializable Fields
     [Tooltip("The maximum number of players per room. When a room is full, it can't be joined by new players, and so new room will be created")]
@@ -21,26 +21,21 @@ public class Launcher : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField]
     private GameObject ButtonOK;
     [SerializeField]
-    private GameObject MapA;
-    [SerializeField]
-    private GameObject MapB;
-    [SerializeField]
     private GameObject StartButton;
     [SerializeField]
-    private TextMeshProUGUI TextStartGameInfo;
-    [SerializeField]
     private List<TextMeshProUGUI> PlayerNames = new List<TextMeshProUGUI>();
+    [SerializeField]
+    private byte minPlayersToStart;
     #endregion
 
     #region Private Fields
     string gameVersion = "1";
-    bool isGonnaStart;
     #endregion
 
     #region MonoBehaviour CallBacks
     void Awake ()
     {
-        isGonnaStart = false;
+        MultiplayerPanel.SetActive(false);
         PhotonNetwork.AutomaticallySyncScene = true;
     }
     // Start is called before the first frame update
@@ -57,6 +52,7 @@ public class Launcher : MonoBehaviourPunCallbacks, IPunObservable
         DisconnectPanel.GetComponentInChildren<Button>().gameObject.SetActive(false);
         DisconnectPanel.GetComponentInChildren<TextMeshProUGUI>().text = "Conectando...";
         DisconnectPanel.SetActive(true);
+        StartButton.SetActive(false);
         PhotonNetwork.GameVersion = gameVersion;
     }
 
@@ -135,12 +131,7 @@ public class Launcher : MonoBehaviourPunCallbacks, IPunObservable
     public override void OnJoinedRoom()
     {
         PhotonNetwork.LocalPlayer.NickName = configuration.Nickname;
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            MapA.SetActive(false);
-            MapB.SetActive(false);
-        }
-        if(PhotonNetwork.PlayerList.Length > 0) 
+        if(PhotonNetwork.PlayerList.Length > minPlayersToStart && PhotonNetwork.IsMasterClient) 
         {
             if(!StartButton.activeSelf)
                 StartButton.SetActive(true);
@@ -156,7 +147,7 @@ public class Launcher : MonoBehaviourPunCallbacks, IPunObservable
     }
     public override void OnLeftRoom()
     {
-        if(PhotonNetwork.PlayerList.Length > 5) 
+        if(PhotonNetwork.PlayerList.Length > minPlayersToStart && PhotonNetwork.IsMasterClient) 
         {
             if(!StartButton.activeSelf)
                 StartButton.SetActive(true);
@@ -172,40 +163,10 @@ public class Launcher : MonoBehaviourPunCallbacks, IPunObservable
     }
     public void LoadScene()
     {
-        isGonnaStart = true;
         configuration.activeObjects = true;
         configuration.isTimed = false;
         PhotonNetwork.CurrentRoom.IsOpen = false;
-        StartCoroutine(WaitLoadLevel());
-    }
-    IEnumerator WaitLoadLevel()
-    {
-        float time;
-        time = 5f;
-        TextStartGameInfo.gameObject.SetActive(true);
-        while(time > 0f)
-        {   
-            time -= Time.deltaTime;
-            TextStartGameInfo.text = "La partida empiza en " + Mathf.Ceil(time).ToString() + "...";
-            yield return null;
-        }
-        MultiplayerPanel.SetActive(false);
         PhotonNetwork.LoadLevel(configuration.SceneRacing);
     }
     #endregion
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if(stream.IsWriting)
-        {
-            if(Input.GetKeyDown(KeyCode.Space))
-            {
-                stream.SendNext("LE HE DADO AL ESPACIO");
-            }
-            Debug.Log("Escribiendo");
-        } else 
-        {
-            Debug.Log(stream.ReceiveNext());
-            Debug.Log("Leyendo");
-        }
-    }
 }

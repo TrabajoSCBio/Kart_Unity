@@ -5,19 +5,21 @@ using System.Net.Sockets;
 using System.Linq;
 using System;
 using System.IO;
+using TMPro;
 using System.Text;
 
 public class ReadPythonSocket : MonoBehaviour
 {
     // Use this for initialization
+    public TextMeshProUGUI mano;
     [HideInInspector] public bool acelerar;
     [HideInInspector] public bool frenar;
     [HideInInspector] public float giro;
     [HideInInspector] public bool objeto;
     TcpListener listener;
-    String msg;
+    string msg;
     private void Awake() {
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(this.gameObject);
     }
     void Start()
     {
@@ -39,6 +41,8 @@ public class ReadPythonSocket : MonoBehaviour
             NetworkStream ns = client.GetStream();
             StreamReader reader = new StreamReader(ns);
             msg = reader.ReadToEnd();
+            mano.text = msg;
+            Debug.Log(msg);
             switch (msg)
             {
                 case "acelerar":

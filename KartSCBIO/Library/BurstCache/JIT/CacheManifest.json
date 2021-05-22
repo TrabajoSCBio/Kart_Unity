@@ -76,10 +76,10 @@
       ]
     },
     {
-      "FullName": "System.Void Unity.Jobs.IJobExtensions/JobStruct`1<Unity.Barracuda.BurstCPUOps/VectorBroadcastJob>::Execute(T&,System.IntPtr,System.IntPtr,Unity.Jobs.LowLevel.Unsafe.JobRanges&,System.Int32)",
+      "FullName": "System.Void Unity.Jobs.IJobExtensions/JobStruct`1<Unity.Barracuda.BurstCPUOps/CopyStrideJob>::Execute(T&,System.IntPtr,System.IntPtr,Unity.Jobs.LowLevel.Unsafe.JobRanges&,System.Int32)",
       "ModuleOptionsHash": 14894265544115024740,
-      "ModuleHash": "927b05bbc1656f9ab29c66e10f488897",
-      "LinkName": "D5A0000F5DA19291",
+      "ModuleHash": "b1a8954b2697a9041a5d377734ee91d5",
+      "LinkName": "94CA01341FF17CF3",
       "AssemblyDependencyIndices": [
         2,
         3,
@@ -88,10 +88,10 @@
       ]
     },
     {
-      "FullName": "System.Void Unity.Jobs.IJobExtensions/JobStruct`1<Unity.Barracuda.BurstCPUOps/CopyStrideJob>::Execute(T&,System.IntPtr,System.IntPtr,Unity.Jobs.LowLevel.Unsafe.JobRanges&,System.Int32)",
+      "FullName": "System.Void Unity.Jobs.IJobExtensions/JobStruct`1<Unity.Barracuda.BurstCPUOps/VectorBroadcastJob>::Execute(T&,System.IntPtr,System.IntPtr,Unity.Jobs.LowLevel.Unsafe.JobRanges&,System.Int32)",
       "ModuleOptionsHash": 14894265544115024740,
-      "ModuleHash": "b1a8954b2697a9041a5d377734ee91d5",
-      "LinkName": "94CA01341FF17CF3",
+      "ModuleHash": "927b05bbc1656f9ab29c66e10f488897",
+      "LinkName": "D5A0000F5DA19291",
       "AssemblyDependencyIndices": [
         2,
         3,

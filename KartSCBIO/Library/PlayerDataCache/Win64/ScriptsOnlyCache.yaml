@@ -383,7 +383,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 8904}
     - Class: 114
-      Script: {instanceID: 9102}
+      Script: {instanceID: 9104}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -588,7 +588,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 8656}
     - Class: 114
-      Script: {instanceID: 441842}
+      Script: {instanceID: 9044}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -835,9 +835,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 8918}
     - Class: 114
-      Script: {instanceID: 9198}
+      Script: {instanceID: 9044}
     - Class: 114
-      Script: {instanceID: 441842}
+      Script: {instanceID: 9200}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -3493,6 +3493,12 @@ ScriptsOnlyBuild:
     className: SignalEmitter
   - hash:
       serializedVersion: 2
+      Hash: 28ed3c5fbfaab9229ba9163e050b3856
+    assemblyName: KartGame.dll
+    namespaceName: 
+    className: ReadPythonSocket
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: PhotonUnityNetworking.Utilities.dll
     namespaceName: Photon.Pun.UtilityScripts
@@ -3545,12 +3551,6 @@ ScriptsOnlyBuild:
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Cockpit.Forms
     className: UserIdUiForm
-  - hash:
-      serializedVersion: 2
-      Hash: b4c3695c7fde876bcf9869edcd347cbf
-    assemblyName: KartGame.dll
-    namespaceName: 
-    className: ReadPythonSocket
   platform: 19
   scenePathNames:
   - Assets/Karting/Scenes/IntroMenu.unity

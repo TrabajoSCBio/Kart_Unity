@@ -45,7 +45,6 @@ GameObject:
   - component: {fileID: 1601259817818394247}
   - component: {fileID: 1601259817818394243}
   - component: {fileID: 1601259817818394264}
-  - component: {fileID: 1601259817818394246}
   - component: {fileID: 6123516844454537864}
   - component: {fileID: 6123516844454537866}
   - component: {fileID: 6123516844454537867}
@@ -54,6 +53,7 @@ GameObject:
   - component: {fileID: -5776861495711496212}
   - component: {fileID: -1545967989052839395}
   - component: {fileID: -3889847402872624606}
+  - component: {fileID: -7817020754234624343}
   m_Layer: 2
   m_Name: Jugador
   m_TagString: Player
@@ -205,22 +205,6 @@ MonoBehaviour:
   Kart: {fileID: 1601259817818394247}
   SteeringParam: Steering
   GroundedParam: Grounded
---- !u!114 &1601259817818394246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1601259817818394242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f292ffb948323c49ac31e54ff737ea2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TurnInputName: Horizontal
-  AccelerateButtonName: Accelerate
-  BrakeButtonName: Brake
-  key: 101
 --- !u!208 &6123516844454537864
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -339,7 +323,7 @@ MonoBehaviour:
   - {fileID: 1601259817818394247}
   - {fileID: 1601259817818394243}
   - {fileID: 1601259817818394264}
-  - {fileID: 1601259817818394246}
+  - {fileID: -7817020754234624343}
   - {fileID: 6123516844454537866}
   - {fileID: 6123516844454537867}
   - {fileID: -1545967989052839395}
@@ -361,6 +345,18 @@ MonoBehaviour:
   centerOffset: {x: 0, y: 0, z: 0}
   followOnStart: 1
   smoothSpeed: 10
+--- !u!114 &-7817020754234624343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601259817818394242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 941d46dd965f6e045a197fd4f8589682, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1601259817885814476
 GameObject:
   m_ObjectHideFlags: 0

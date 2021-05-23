@@ -30,7 +30,7 @@
 		</data>
 		<key>Resources/Data/Managed/KartGame.dll</key>
 		<data>
-		i2SEprge3zIc4pbmX6Vrl/HAFs4=
+		XAbnBHVpN0z8F9HEHf904DYX4Jo=
 		</data>
 		<key>Resources/Data/Managed/Mono.Data.Sqlite.dll</key>
 		<data>
@@ -610,7 +610,7 @@
 		</data>
 		<key>Resources/Data/globalgamemanagers</key>
 		<data>
-		B2UWxaLnPwSLSKzh9zzByEcQT94=
+		uikqIfvSZeWP5L4DpPOVXCG+SWE=
 		</data>
 		<key>Resources/Data/globalgamemanagers.assets</key>
 		<data>
@@ -654,7 +654,7 @@
 		</data>
 		<key>Resources/Data/resources.assets</key>
 		<data>
-		Sc69z+KwRB/+ct9nFpCnBPCJR20=
+		JdhiDzlSzeOc7eZYkBNYA3CtqUs=
 		</data>
 		<key>Resources/Data/resources.assets.resS</key>
 		<data>
@@ -884,10 +884,10 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			3Z7Todq5HvIwLLtY2XYELShqqH0=
+			gBIN0KnsDgKrnxadrwxRvocrGPk=
 			</data>
 			<key>requirement</key>
-			<string>cdhash H"dd9ed3a1dab91ef2302cbb58d976042d286aa87d"</string>
+			<string>cdhash H"80120dd0a9ec0e02ab9f169daf0c51be872b18f9"</string>
 		</dict>
 		<key>PlugIns/libgrpc_csharp_ext.x64.bundle</key>
 		<dict>
@@ -944,7 +944,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			IBw745L+XgYyg86J6s7DgaJQMYvywXv94qH647PNY74=
+			K1uIy86kOUGGRq5f1AVNnxDycnYD3lUcl6WyvLrocmQ=
 			</data>
 		</dict>
 		<key>Resources/Data/Managed/Mono.Data.Sqlite.dll</key>
@@ -1959,7 +1959,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			SuBx9Biwgss1ijWm7Qiu2Q6J6eMQ7rI0BR8y7raJeNs=
+			yIoPSWNXMxOHLKcs7c6t3S57huMccNyC1HGZ3+Q3RsE=
 			</data>
 		</dict>
 		<key>Resources/Data/globalgamemanagers.assets</key>
@@ -2036,7 +2036,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			6MbG02Rd3w71jHBC9jkB30ThBqxZFnZxhgXMKM2ZYas=
+			zBydnVIBCbLeUdwwKiDXo2eXKPuMfCLuLQw+C3aMp8s=
 			</data>
 		</dict>
 		<key>Resources/Data/resources.assets.resS</key>

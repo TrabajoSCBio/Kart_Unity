@@ -6,6 +6,7 @@ using System.Linq;
 using System;
 using System.IO;
 using TMPro;
+using System.Diagnostics;
 using System.Text;
 
 public class ReadPythonSocket : MonoBehaviour
@@ -26,6 +27,13 @@ public class ReadPythonSocket : MonoBehaviour
         listener = new TcpListener(IPAddress.Parse("127.0.0.1"),55001);
         listener.Start();
         print("is listening");
+        Process bat = new Process();
+        bat.StartInfo.FileName = "script.bat";
+        bat.StartInfo.RedirectStandardInput = true;
+        bat.StartInfo.RedirectStandardOutput = true;
+        bat.StartInfo.CreateNoWindow = true;
+        bat.StartInfo.UseShellExecute = false;
+        bat.Start();
     }
     // Update is called once per frame
     void Update()
@@ -42,7 +50,7 @@ public class ReadPythonSocket : MonoBehaviour
             StreamReader reader = new StreamReader(ns);
             msg = reader.ReadToEnd();
             mano.text = msg;
-            Debug.Log(msg);
+            //Debug.Log(msg);
             switch (msg)
             {
                 case "acelerar":

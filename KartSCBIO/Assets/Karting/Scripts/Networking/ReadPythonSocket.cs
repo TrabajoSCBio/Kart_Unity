@@ -13,12 +13,13 @@ public class ReadPythonSocket : MonoBehaviour
 {
     // Use this for initialization
     public TextMeshProUGUI mano;
+    public TextMeshProUGUI mano2;
     [HideInInspector] public bool acelerar;
     [HideInInspector] public bool frenar;
     [HideInInspector] public float giro;
     [HideInInspector] public bool objeto;
     TcpListener listener;
-    string msg;
+    string[] msg;
     private void Awake() {
         DontDestroyOnLoad(this.gameObject);
     }
@@ -45,13 +46,14 @@ public class ReadPythonSocket : MonoBehaviour
         else
         {
             print("socket comes");
+            string msgAll = "";
             TcpClient client = listener.AcceptTcpClient();
             NetworkStream ns = client.GetStream();
             StreamReader reader = new StreamReader(ns);
-            msg = reader.ReadToEnd();
-            mano.text = msg;
+            msgAll = reader.ReadToEnd();
+            msg = msgAll.Split(' ');
             //Debug.Log(msg);
-            switch (msg)
+            switch (msg[0])
             {
                 case "acelerar":
                 acelerar = true;
@@ -64,6 +66,11 @@ public class ReadPythonSocket : MonoBehaviour
                 case "objeto":
                 objeto = true;
                 break;
+                default:
+                break;
+            }
+            switch (msg[1])
+            {
                 case "izquierda":
                 giro = -1f;
                 break;

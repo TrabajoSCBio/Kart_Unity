@@ -3493,7 +3493,7 @@ ScriptsOnlyBuild:
     className: SignalEmitter
   - hash:
       serializedVersion: 2
-      Hash: 28ed3c5fbfaab9229ba9163e050b3856
+      Hash: 7dc4a542f81c4960ef102e0f0e55215a
     assemblyName: KartGame.dll
     namespaceName: 
     className: ReadPythonSocket
@@ -3558,4 +3558,4 @@ ScriptsOnlyBuild:
   - Assets/Karting/Scenes/LoseScene.unity
   - Assets/Karting/Scenes/WinScene.unity
   - Assets/Karting/Scenes/CircuitoAMP.unity
-  playerPath: D:/Proyectos Unity/Trabajo SCBIO/Kart_Unity/Telekart/Telekart.exe
+  playerPath: D:/Proyectos Unity/Trabajo SCBIO/Telekart/Telekart/Telekart.exe
